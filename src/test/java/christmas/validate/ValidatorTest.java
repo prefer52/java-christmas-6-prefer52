@@ -41,4 +41,14 @@ class ValidatorTest {
                 validateInteger(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("숫자가 1~31 범위를 벗어나는 것에 대한 예외 처리")
+    @ValueSource(ints = {0, 32})
+    @ParameterizedTest
+    void validateIntegerInTest(Integer input) {
+        assertThatThrownBy(() ->
+                validateIntegerIn(input, 1, 31))
+                .isInstanceOf(IllegalArgumentException.class);
+
+    }
 }
