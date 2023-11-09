@@ -1,11 +1,17 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.validate.Validator;
+
+import static christmas.validate.Validator.*;
+
 public class InputView {
-    // 날짜 입력(날짜를 enum으로 선언하여 int가 아닌 enum으로 반환?)
+    // 숫자 입력
     public int readInteger() {
         String date = Console.readLine();
-        // 검증
+        validateNotEmptyString(date);
+        validateContainSpace(date);
+        validateInteger(date);
         return Integer.parseInt(date);
     }
 }
