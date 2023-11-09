@@ -1,13 +1,11 @@
 package christmas.controller;
 
-import christmas.type.Message;
-import christmas.validate.Validator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
 import java.util.Arrays;
 
-import static christmas.type.Message.*;
+import static christmas.type.GuideMessage.*;
 import static christmas.validate.Validator.*;
 
 public class ChristmasPlaner {
