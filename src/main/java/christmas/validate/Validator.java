@@ -7,4 +7,10 @@ public class Validator {
             throw new IllegalArgumentException("");
         // 에러 메시지를 enum으로 구현
     }
+
+    public void validateContainSpace(String input) {
+        if (input.contains(" "))
+            throw new IllegalArgumentException("");
+        // 에러 메시지를 enum으로 구현
+    }
 }
