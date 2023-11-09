@@ -13,4 +13,13 @@ public class Validator {
             throw new IllegalArgumentException("");
         // 에러 메시지를 enum으로 구현
     }
+
+    public void validateInteger(String input) {
+        try {
+            Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("");
+            // 에러 메시지를 enum으로 구현
+        }
+    }
 }
