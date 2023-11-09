@@ -1,12 +1,14 @@
 package christmas.controller;
 
 import christmas.type.Message;
+import christmas.validate.Validator;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
 import java.util.Arrays;
 
 import static christmas.type.Message.*;
+import static christmas.validate.Validator.*;
 
 public class ChristmasPlaner {
     private final InputView inputView;
@@ -26,6 +28,6 @@ public class ChristmasPlaner {
                 Arrays.asList(new String[] {HELLO.getText(), CHOOSE_DATE.getText()})
         );
         int date = inputView.readInteger();
-        // 검증
+        validateIntegerIn(date, 1, 31);
     }
 }

@@ -22,4 +22,11 @@ public class Validator {
             // 에러 메시지를 enum으로 구현
         }
     }
+
+    public static void validateIntegerIn(Integer input, int start, int end) {
+        if (input < start || input > end) {
+            throw new IllegalArgumentException("");
+            // 에러 메시지를 enum으로 구현
+        }
+    }
 }
