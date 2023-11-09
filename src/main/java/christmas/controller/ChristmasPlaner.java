@@ -25,7 +25,15 @@ public class ChristmasPlaner {
         outputView.printMessages(
                 Arrays.asList(new String[] {HELLO.getText(), CHOOSE_DATE.getText()})
         );
-        int date = inputView.readInteger();
-        validateIntegerIn(date, 1, 31);
+        while (true) {
+            try {
+                int date = inputView.readInteger();
+                validateIntegerIn(date, 1, 31);
+            } catch (IllegalArgumentException e) {
+                outputView.printMessage(e.getMessage());
+                continue;
+            }
+            break;
+        }
     }
 }
