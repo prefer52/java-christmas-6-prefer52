@@ -44,7 +44,16 @@ public class Validator {
     public static void validateContainValidDash(List<String> inputs) {
         for (String input : inputs) {
             if (input.contains("--") || input.startsWith("-") || input.endsWith("-")) {
-                throw new IllegalArgumentException(CONTAIN_INVALID_DASH.getError());
+                throw new IllegalArgumentException(INVALID_ORDER_FORM.getError());
+            }
+        }
+    }
+
+    // -를 기준으로 2개로 분리되는지 검증
+    public static void validateSplitSizeIsTwo(List<String> inputs) {
+        for (String input : inputs) {
+            if (List.of(input.split("-")).size() != 2) {
+                throw new IllegalArgumentException(INVALID_ORDER_FORM.getError());
             }
         }
     }

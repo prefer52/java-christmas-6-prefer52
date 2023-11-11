@@ -38,6 +38,7 @@ public class ChristmasPlaner {
             try {
                 List<String> menus = InputView.readMenus();
                 validateContainValidDash(menus);
+                validateSplitSizeIsTwo(menus);
             } catch (IllegalArgumentException e) {
                 printMessage(e.getMessage());
                 continue;
