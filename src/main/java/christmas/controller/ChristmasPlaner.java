@@ -1,36 +1,29 @@
 package christmas.controller;
 
 import christmas.view.InputView;
-import christmas.view.OutputView;
 
 import java.util.Arrays;
 
 import static christmas.type.GuideMessage.*;
 import static christmas.validate.Validator.*;
+import static christmas.view.OutputView.*;
 
 public class ChristmasPlaner {
-    private final InputView inputView;
-    private final OutputView outputView;
-
-    public ChristmasPlaner() {
-        this.inputView = new InputView();
-        this.outputView = new OutputView();
-    }
 
     public void start() {
         readDate();
     }
 
     private void readDate() {
-        outputView.printMessages(
-                Arrays.asList(new String[] {HELLO.getText(), CHOOSE_DATE.getText()})
+        printMessages(
+                Arrays.asList(new String[]{HELLO.getText(), CHOOSE_DATE.getText()})
         );
         while (true) {
             try {
-                int date = inputView.readInteger();
+                int date = InputView.readDate();
                 validateIntegerIn(date, 1, 31);
             } catch (IllegalArgumentException e) {
-                outputView.printMessage(e.getMessage());
+                printMessage(e.getMessage());
                 continue;
             }
             break;
