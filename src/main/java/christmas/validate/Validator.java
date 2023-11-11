@@ -1,5 +1,7 @@
 package christmas.validate;
 
+import christmas.type.Menus;
+
 import java.util.List;
 
 import static christmas.type.ErrorMessage.*;
@@ -55,6 +57,13 @@ public class Validator {
             if (List.of(input.split("-")).size() != 2) {
                 throw new IllegalArgumentException(INVALID_ORDER_FORM.getError());
             }
+        }
+    }
+
+    // 문자열이 메뉴에 존재하는 문자열인지 검증
+    public static void validateExistMenu(String input) {
+        if (!Menus.inputInMenus(input)) {
+            throw new IllegalArgumentException(INVALID_ORDER_FORM.getError());
         }
     }
 }
