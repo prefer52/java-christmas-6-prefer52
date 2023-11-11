@@ -1,6 +1,6 @@
 package christmas.controller;
 
-import christmas.domain.Menu;
+import christmas.domain.Order;
 import christmas.view.InputView;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import static christmas.validate.Validator.*;
 import static christmas.view.OutputView.*;
 
 public class ChristmasPlaner {
-    private Menu menu;
+    private Order order;
 
     public void start() {
         readDate();
@@ -41,7 +41,7 @@ public class ChristmasPlaner {
                 List<String> menus = InputView.readMenus();
                 validateContainValidDash(menus);
                 validateSplitSizeIsTwo(menus);
-                menu = new Menu(menus);
+                order = new Order(menus);
             } catch (IllegalArgumentException e) {
                 printMessage(e.getMessage());
                 continue;

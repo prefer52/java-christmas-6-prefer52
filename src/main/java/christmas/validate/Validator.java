@@ -1,5 +1,6 @@
 package christmas.validate;
 
+import christmas.type.MenuCategory;
 import christmas.type.Menus;
 
 import java.util.List;
@@ -72,6 +73,25 @@ public class Validator {
     public static void validateDuplicatedMenu(Map<String, Integer> map, String input) {
         if (map.containsKey(input)) {
             throw new IllegalArgumentException(INVALID_ORDER.getError());
+        }
+    }
+
+    // 주문한 메뉴가 단 하나일 시 그게 음료인지 검증
+    public static void validateSingleMenuIsBeverage(String input) {
+        if (Menus.valueOf(input).getMenuCategory().equals(MenuCategory.BEVERAGE)) {
+            throw new IllegalArgumentException(BEVERAGE_SINGLE_ORDER.getError());
+        }
+    }
+
+    // 전체 주문 메뉴 수가 20개를 초과하는지 검증
+    public static void validateSumOver(int value, List<Integer> input) {
+        int sum = 0;
+        for (Integer number : input) {
+            sum += number;
+        }
+
+        if (sum > value) {
+            throw new IllegalArgumentException(TOO_MANY_ORDER.getError());
         }
     }
 }
