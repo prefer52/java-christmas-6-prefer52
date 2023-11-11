@@ -37,7 +37,7 @@ public class ChristmasPlaner {
         while (true) {
             try {
                 List<String> menus = InputView.readMenus();
-
+                validateContainValidDash(menus);
             } catch (IllegalArgumentException e) {
                 printMessage(e.getMessage());
                 continue;

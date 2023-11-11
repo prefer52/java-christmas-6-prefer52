@@ -1,5 +1,7 @@
 package christmas.validate;
 
+import java.util.List;
+
 import static christmas.type.ErrorMessage.*;
 
 public class Validator {
@@ -35,6 +37,15 @@ public class Validator {
     public static void validateContainValidComma(String input) {
         if (input.contains(",,") || input.startsWith(",") || input.endsWith(",")) {
             throw new IllegalArgumentException(CONTAIN_INVALID_COMMA.getError());
+        }
+    }
+
+    // --가 포함되어 있거나, -로 시작하거나 끝나는지 검증
+    public static void validateContainValidDash(List<String> inputs) {
+        for (String input : inputs) {
+            if (input.contains("--") || input.startsWith("-") || input.endsWith("-")) {
+                throw new IllegalArgumentException(CONTAIN_INVALID_DASH.getError());
+            }
         }
     }
 }
