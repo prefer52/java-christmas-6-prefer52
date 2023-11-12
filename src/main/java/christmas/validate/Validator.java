@@ -3,8 +3,10 @@ package christmas.validate;
 import christmas.type.MenuCategory;
 import christmas.type.Menus;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static christmas.type.ErrorMessage.*;
 
@@ -70,8 +72,8 @@ public class Validator {
     }
 
     // 주문한 메뉴 중 중복되는 메뉴가 존재하는지 검증
-    public static void validateDuplicatedMenu(Map<String, Integer> map, String input) {
-        if (map.containsKey(input)) {
+    public static void validateDuplicatedMenu(Set<Menus> set, String input) {
+        if (set.contains(input)) {
             throw new IllegalArgumentException(INVALID_ORDER.getError());
         }
     }

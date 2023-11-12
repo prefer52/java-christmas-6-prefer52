@@ -54,10 +54,16 @@ public class ChristmasPlaner {
     private void showBenefit() {
         printMessage(PREVIEW_BENEFIT.getText() + "\n");
         showOrderMenu();
+        showTotalAmountBeforeDiscount();
     }
 
     private void showOrderMenu() {
         printMessage(ORDERED_MENU.getText());
         printMessage(order.getOrderMenu());
+    }
+
+    private void showTotalAmountBeforeDiscount() {
+        printMessage(TOTAL_ORDER_AMOUNT_BEFORE_DISCOUND.getText());
+        printMessage(order.getTotalAmount() + "\n");
     }
 }
