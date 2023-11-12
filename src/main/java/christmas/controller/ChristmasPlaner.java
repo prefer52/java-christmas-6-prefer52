@@ -17,6 +17,7 @@ public class ChristmasPlaner {
         readDate();
         readMenu();
         showBenefit();
+        showComplimentaryMenu();
     }
 
     private void readDate() {
@@ -65,5 +66,10 @@ public class ChristmasPlaner {
     private void showTotalAmountBeforeDiscount() {
         printMessage(TOTAL_ORDER_AMOUNT_BEFORE_DISCOUND.getText());
         printMessage(order.getTotalAmount() + "\n");
+    }
+
+    private void showComplimentaryMenu() {
+        printMessage(COMPLIMENTARY_ITEMS.getText());
+        printMessage(order.getComplimentaryMenu());
     }
 }

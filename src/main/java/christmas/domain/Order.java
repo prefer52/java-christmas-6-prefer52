@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import static christmas.type.Menus.*;
 import static christmas.validate.Validator.*;
 
 public class Order {
@@ -22,7 +23,7 @@ public class Order {
             validateDuplicatedMenu(this.menus.keySet(), menuSplit[0]);
             validateInteger(menuSplit[1]);
             validateIntegerIn(Integer.valueOf(menuSplit[1]), 1, 20);
-            this.menus.put(Menus.getMenus(menuSplit[0]), Integer.valueOf(menuSplit[1]));
+            this.menus.put(getMenus(menuSplit[0]), Integer.valueOf(menuSplit[1]));
         }
         validateSumOver(20, new ArrayList<>(this.menus.values()));
     }
@@ -45,5 +46,12 @@ public class Order {
         }
 
         return totalAmount;
+    }
+
+    public String getComplimentaryMenu() {
+        if (getTotalAmount() >= 120000)
+            return CHAMPAGNE.getName();
+
+        return "없음";
     }
 }
