@@ -16,6 +16,7 @@ public class ChristmasPlaner {
     public void start() {
         readDate();
         readMenu();
+        showBenefit();
     }
 
     private void readDate() {
@@ -48,5 +49,15 @@ public class ChristmasPlaner {
             }
             break;
         }
+    }
+
+    private void showBenefit() {
+        printMessage(PREVIEW_BENEFIT.getText() + "\n");
+        showOrderMenu();
+    }
+
+    private void showOrderMenu() {
+        printMessage(ORDERED_MENU.getText());
+        printMessage(order.getOrderMenu());
     }
 }

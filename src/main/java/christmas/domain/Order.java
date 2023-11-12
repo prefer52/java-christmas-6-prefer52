@@ -1,8 +1,6 @@
 package christmas.domain;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static christmas.validate.Validator.*;
 
@@ -11,16 +9,28 @@ public class Order {
 
     public Order(List<String> menus) {
         this.menus = new HashMap<>();
-        if (menus.size() == 1) {
-            validateSingleMenuIsBeverage(menus.get(0));
-        }
         for (String menu : menus) {
-            String[] menuSplit = menu.split(",");
+            String[] menuSplit = menu.split("-");
             validateExistMenu(menuSplit[0]);
+            if (menus.size() == 1) {
+                validateSingleMenuIsBeverage(menuSplit[0]);
+            }
             validateDuplicatedMenu(this.menus, menuSplit[0]);
             validateInteger(menuSplit[1]);
             validateIntegerIn(Integer.valueOf(menuSplit[1]), 1, 20);
+            this.menus.put(menuSplit[0], Integer.valueOf(menuSplit[1]));
         }
-        validateSumOver(20, (List<Integer>) this.menus.values());
+        validateSumOver(20, new ArrayList<>(this.menus.values()));
+    }
+
+    public String getOrderMenu() {
+        String orderMenu = "";
+
+        Set<String> keys = menus.keySet();
+        for (String key : keys) {
+            orderMenu += key + " " + menus.get(key) + "개\n";
+        }
+
+        return orderMenu;
     }
 }
