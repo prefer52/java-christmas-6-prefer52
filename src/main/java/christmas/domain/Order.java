@@ -2,11 +2,9 @@ package christmas.domain;
 
 import christmas.type.Menus;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import static christmas.type.Menus.*;
 import static christmas.validate.Validator.*;
 
 public class Order {
@@ -23,7 +21,7 @@ public class Order {
             validateDuplicatedMenu(this.menus.keySet(), menuSplit[0]);
             validateInteger(menuSplit[1]);
             validateIntegerIn(Integer.valueOf(menuSplit[1]), 1, 20);
-            this.menus.put(getMenus(menuSplit[0]), Integer.valueOf(menuSplit[1]));
+            this.menus.put(Menus.getMenus(menuSplit[0]), Integer.valueOf(menuSplit[1]));
         }
         validateSumOver(20, new ArrayList<>(this.menus.values()));
     }
@@ -42,7 +40,7 @@ public class Order {
         Integer totalAmount = 0;
         Set<Menus> keys = menus.keySet();
         for (Menus key : keys) {
-            totalAmount += key.getPrice()*menus.get(key);
+            totalAmount += key.getPrice() * menus.get(key);
         }
 
         return totalAmount;
@@ -50,8 +48,12 @@ public class Order {
 
     public String getComplimentaryMenu() {
         if (getTotalAmount() >= 120000)
-            return CHAMPAGNE.getName();
+            return Menus.CHAMPAGNE.getName() + " 1개\n";
 
         return "없음";
+    }
+
+    public List<Menus> getMenus() {
+        return menus.keySet().stream().toList();
     }
 }

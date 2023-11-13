@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.Event;
 import christmas.domain.Order;
 import christmas.view.InputView;
 
@@ -12,21 +13,21 @@ import static christmas.view.OutputView.*;
 
 public class ChristmasPlaner {
     private Order order;
+    private Event event;
 
+    // 금액 출력 형식 맞추기 https://jamesdreaming.tistory.com/203
     public void start() {
         readDate();
         readMenu();
-        showBenefit();
-        showComplimentaryMenu();
+        showBenefitPreview();
     }
 
     private void readDate() {
-        printMessages(
-                Arrays.asList(new String[]{HELLO.getText(), CHOOSE_DATE.getText()})
-        );
+        printMessages(Arrays.asList(new String[]{HELLO.getText(), CHOOSE_DATE.getText()}));
+        int date;
         while (true) {
             try {
-                int date = InputView.readDate();
+                date = InputView.readDate();
                 validateIntegerIn(date, 1, 31);
             } catch (IllegalArgumentException e) {
                 printMessage(e.getMessage());
@@ -34,6 +35,8 @@ public class ChristmasPlaner {
             }
             break;
         }
+
+        this.event = new Event(date);
     }
 
     private void readMenu() {
@@ -52,10 +55,12 @@ public class ChristmasPlaner {
         }
     }
 
-    private void showBenefit() {
+    private void showBenefitPreview() {
         printMessage(PREVIEW_BENEFIT.getText() + "\n");
         showOrderMenu();
         showTotalAmountBeforeDiscount();
+        showComplimentaryMenu();
+        showBenefitDetail();
     }
 
     private void showOrderMenu() {
@@ -71,5 +76,10 @@ public class ChristmasPlaner {
     private void showComplimentaryMenu() {
         printMessage(COMPLIMENTARY_ITEMS.getText());
         printMessage(order.getComplimentaryMenu());
+    }
+
+    private void showBenefitDetail() {
+        printMessage(BENEFIT_DETAIL.getText());
+        printMessage(event.getDiscountDetails(order.getTotalAmount(), order.getMenus()));
     }
 }
