@@ -10,20 +10,23 @@ import static christmas.validate.Validator.*;
 public class Order {
     private Map<Menus, Integer> menus;
 
+    // 주문 목록 초기화 및 검증
     public Order(List<String> menus) {
         this.menus = new HashMap<>();
         for (String menu : menus) {
             String[] menuSplit = menu.split("-");
             validateExistMenu(menuSplit[0]);
+            Menus menuType = Menus.getMenus(menuSplit[0]);
             if (menus.size() == 1) {
-                validateSingleMenuIsBeverage(menuSplit[0]);
+                validateSingleMenuIsBeverage(menuType);
             }
-            validateDuplicatedMenu(this.menus.keySet(), Menus.getMenus(menuSplit[0]));
             validateQuantityIsInteger(menuSplit[1]);
-            validateIntegerIn(Integer.valueOf(menuSplit[1]), 1, 20);
-            this.menus.put(Menus.getMenus(menuSplit[0]), Integer.valueOf(menuSplit[1]));
+            Integer quantity = Integer.valueOf(menuSplit[1]);
+            validateDuplicatedMenu(this.menus.keySet(), menuType);
+            validateIntegerIn(quantity, 1, 20);
+            this.menus.put(menuType, quantity);
         }
-        validateSumOver(20, new ArrayList<>(this.menus.values()));
+        validateSumOver(20, this.menus.values().stream().toList());
     }
 
     public String getOrderMenu() {

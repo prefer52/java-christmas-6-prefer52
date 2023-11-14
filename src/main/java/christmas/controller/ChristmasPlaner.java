@@ -4,7 +4,6 @@ import christmas.domain.Event;
 import christmas.domain.Order;
 import christmas.view.InputView;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static christmas.type.GuideMessage.*;
@@ -24,7 +23,7 @@ public class ChristmasPlaner {
     }
 
     private void readDate() {
-        printMessages(Arrays.asList(new String[]{HELLO.getText(), CHOOSE_DATE.getText()}));
+        printMessages(List.of(HELLO.getText(), CHOOSE_DATE.getText()));
         while (true) {
             try {
                 date = InputView.readDate();
@@ -42,7 +41,7 @@ public class ChristmasPlaner {
         while (true) {
             try {
                 List<String> menus = InputView.readMenus();
-                validateContainValidDash(menus);
+                validateContainInvalidDash(menus);
                 validateSplitSizeIsTwo(menus);
                 order = new Order(menus);
                 event = new Event(date, order);
@@ -71,7 +70,7 @@ public class ChristmasPlaner {
     }
 
     private void showTotalAmountBeforeDiscount() {
-        printMessage(TOTAL_ORDER_AMOUNT_BEFORE_DISCOUND.getText());
+        printMessage(TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT.getText());
         printMessage(order.getTotalAmount() + "\n");
     }
 

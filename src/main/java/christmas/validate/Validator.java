@@ -54,7 +54,7 @@ public class Validator {
     }
 
     // --가 포함되어 있거나, -로 시작하거나 끝나는지 검증
-    public static void validateContainValidDash(List<String> inputs) {
+    public static void validateContainInvalidDash(List<String> inputs) {
         for (String input : inputs) {
             if (input.contains("--") || input.startsWith("-") || input.endsWith("-")) {
                 throw new IllegalArgumentException(INVALID_ORDER.getError());
@@ -86,8 +86,8 @@ public class Validator {
     }
 
     // 주문한 메뉴가 단 하나일 시 그게 음료인지 검증
-    public static void validateSingleMenuIsBeverage(String input) {
-        if (Menus.getMenus(input).getMenuCategory().equals(MenuCategory.BEVERAGE)) {
+    public static void validateSingleMenuIsBeverage(Menus input) {
+        if (input.getMenuCategory().equals(MenuCategory.BEVERAGE)) {
             throw new IllegalArgumentException(INVALID_ORDER.getError());
         }
     }
