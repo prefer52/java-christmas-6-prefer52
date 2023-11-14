@@ -60,4 +60,8 @@ public class Order {
     public Integer getQuantity(Menus menu) {
         return menus.get(menu);
     }
+
+    public String getExpectedDiscountAmount(int discount) {
+        return (getTotalAmount() + discount) + "원\n";
+    }
 }

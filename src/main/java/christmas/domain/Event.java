@@ -85,12 +85,18 @@ public class Event {
     }
 
     public String getTotalBenefitAmount() {
-        return getSumOfBenefitAmount(order.getTotalAmount(), order.getMenus()) + "원\n";
+        return getSumOfBenefitAmount() + "원\n";
     }
 
-    public int getSumOfBenefitAmount(int amount, List<Menus> menus) {
+    public int getSumOfBenefitAmount() {
+        Integer amount = order.getTotalAmount();
+        List<Menus> menus = order.getMenus();
+        return getSumOfDiscountAmount() + getComplimentaryEvent(amount);
+    }
+
+    public int getSumOfDiscountAmount() {
+        List<Menus> menus = order.getMenus();
         return getChristmasDDayDiscount() + getWeekDayDiscount(menus) +
-                getWeekendDayDiscount(menus) + getSpecialDayDiscount(menus) +
-                getComplimentaryEvent(amount);
+                getWeekendDayDiscount(menus) + getSpecialDayDiscount(menus);
     }
 }

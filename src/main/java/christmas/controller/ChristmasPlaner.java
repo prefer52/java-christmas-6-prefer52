@@ -61,6 +61,7 @@ public class ChristmasPlaner {
         showComplimentaryMenu();
         showBenefitDetail();
         showTotalBenefitAmount();
+        showExpectedDiscountAmount();
     }
 
     private void showOrderMenu() {
@@ -86,5 +87,10 @@ public class ChristmasPlaner {
     private void showTotalBenefitAmount() {
         printMessage(TOTAL_BENEFIT_AMOUNT.getText());
         printMessage(event.getTotalBenefitAmount());
+    }
+
+    private void showExpectedDiscountAmount() {
+        printMessage(EXPECTED_DISCOUNT_AMOUNT.getText());
+        printMessage(order.getExpectedDiscountAmount(event.getSumOfDiscountAmount()));
     }
 }
