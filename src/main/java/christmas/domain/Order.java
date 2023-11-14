@@ -56,4 +56,8 @@ public class Order {
     public List<Menus> getMenus() {
         return menus.keySet().stream().toList();
     }
+
+    public Integer getQuantity(Menus menu) {
+        return menus.get(menu);
+    }
 }

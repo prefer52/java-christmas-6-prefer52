@@ -14,6 +14,7 @@ import static christmas.view.OutputView.*;
 public class ChristmasPlaner {
     private Order order;
     private Event event;
+    private int date;
 
     // 금액 출력 형식 맞추기 https://jamesdreaming.tistory.com/203
     public void start() {
@@ -24,7 +25,6 @@ public class ChristmasPlaner {
 
     private void readDate() {
         printMessages(Arrays.asList(new String[]{HELLO.getText(), CHOOSE_DATE.getText()}));
-        int date;
         while (true) {
             try {
                 date = InputView.readDate();
@@ -35,8 +35,6 @@ public class ChristmasPlaner {
             }
             break;
         }
-
-        this.event = new Event(date);
     }
 
     private void readMenu() {
@@ -47,6 +45,7 @@ public class ChristmasPlaner {
                 validateContainValidDash(menus);
                 validateSplitSizeIsTwo(menus);
                 order = new Order(menus);
+                event = new Event(date, order);
             } catch (IllegalArgumentException e) {
                 printMessage(e.getMessage());
                 continue;
@@ -61,6 +60,7 @@ public class ChristmasPlaner {
         showTotalAmountBeforeDiscount();
         showComplimentaryMenu();
         showBenefitDetail();
+        showTotalBenefitAmount();
     }
 
     private void showOrderMenu() {
@@ -80,6 +80,11 @@ public class ChristmasPlaner {
 
     private void showBenefitDetail() {
         printMessage(BENEFIT_DETAIL.getText());
-        printMessage(event.getDiscountDetails(order.getTotalAmount(), order.getMenus()));
+        printMessage(event.getDiscountDetails());
+    }
+
+    private void showTotalBenefitAmount() {
+        printMessage(TOTAL_BENEFIT_AMOUNT.getText());
+        printMessage(event.getTotalBenefitAmount());
     }
 }
