@@ -62,6 +62,7 @@ public class ChristmasPlaner {
         showBenefitDetail();
         showTotalBenefitAmount();
         showExpectedDiscountAmount();
+        showDecemberEventBadge();
     }
 
     private void showOrderMenu() {
@@ -92,5 +93,10 @@ public class ChristmasPlaner {
     private void showExpectedDiscountAmount() {
         printMessage(EXPECTED_DISCOUNT_AMOUNT.getText());
         printMessage(order.getExpectedDiscountAmount(event.getSumOfDiscountAmount()));
+    }
+
+    private void showDecemberEventBadge() {
+        printMessage(DECEMBER_EVENT_BADGE.getText());
+        printMessage(event.getDecemberEventBadge());
     }
 }

@@ -18,8 +18,8 @@ public class Order {
             if (menus.size() == 1) {
                 validateSingleMenuIsBeverage(menuSplit[0]);
             }
-            validateDuplicatedMenu(this.menus.keySet(), menuSplit[0]);
-            validateInteger(menuSplit[1]);
+            validateDuplicatedMenu(this.menus.keySet(), Menus.getMenus(menuSplit[0]));
+            validateQuantityIsInteger(menuSplit[1]);
             validateIntegerIn(Integer.valueOf(menuSplit[1]), 1, 20);
             this.menus.put(Menus.getMenus(menuSplit[0]), Integer.valueOf(menuSplit[1]));
         }
@@ -62,6 +62,6 @@ public class Order {
     }
 
     public String getExpectedDiscountAmount(int discount) {
-        return (getTotalAmount() + discount) + "원\n";
+        return (getTotalAmount() - discount) + "원\n";
     }
 }

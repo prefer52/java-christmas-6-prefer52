@@ -12,7 +12,7 @@ public class InputView {
         String date = Console.readLine();
         validateNotEmptyString(date);
         validateContainSpace(date);
-        validateInteger(date);
+        validateDateIsInteger(date);
         return Integer.parseInt(date);
     }
 

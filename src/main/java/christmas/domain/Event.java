@@ -36,11 +36,11 @@ public class Event {
         if (discount == 0) {
             return "";
         }
-        return eventCategory.getDescription() + ": " + discount + "원\n";
+        return eventCategory.getDescription() + ": " + -discount + "원\n";
     }
 
     public int getChristmasDDayDiscount() {
-        return -((date - 1) * CHRISTMAS_D_DAY_DISCOUNT.getDiscount() + 1000);
+        return ((date - 1) * CHRISTMAS_D_DAY_DISCOUNT.getDiscount() + 1000);
     }
 
     public int getWeekDayDiscount(List<Menus> menus) {
@@ -54,7 +54,7 @@ public class Event {
                 discount += WEEKDAY_DISCOUNT.getDiscount()*order.getQuantity(menu);
             }
         }
-        return -discount;
+        return discount;
     }
 
     public int getWeekendDayDiscount(List<Menus> menus) {
@@ -68,24 +68,24 @@ public class Event {
                 discount += WEEKEND_DISCOUNT.getDiscount()*order.getQuantity(menu);
             }
         }
-        return -discount;
+        return discount;
     }
 
     public int getSpecialDayDiscount(List<Menus> menus) {
         if (!SPECIAL_DAY.getDates().contains(date)) {
             return 0;
         }
-        return -SPECIAL_DISCOUNT.getDiscount();
+        return SPECIAL_DISCOUNT.getDiscount();
     }
 
     public int getComplimentaryEvent(int amount) {
         if (amount < 120000)
             return 0;
-        return -Menus.CHAMPAGNE.getPrice();
+        return Menus.CHAMPAGNE.getPrice();
     }
 
     public String getTotalBenefitAmount() {
-        return getSumOfBenefitAmount() + "원\n";
+        return -getSumOfBenefitAmount() + "원\n";
     }
 
     public int getSumOfBenefitAmount() {
@@ -98,5 +98,19 @@ public class Event {
         List<Menus> menus = order.getMenus();
         return getChristmasDDayDiscount() + getWeekDayDiscount(menus) +
                 getWeekendDayDiscount(menus) + getSpecialDayDiscount(menus);
+    }
+
+    public String getDecemberEventBadge() {
+        int benefitAmount = getSumOfBenefitAmount();
+        if (benefitAmount > 20000) {
+            return "산타\n";
+        }
+        if (benefitAmount > 10000) {
+            return "트리\n";
+        }
+        if (benefitAmount > 5000) {
+            return "별\n";
+        }
+        return "없음\n";
     }
 }

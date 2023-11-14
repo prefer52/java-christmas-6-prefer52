@@ -5,7 +5,6 @@ import christmas.type.Menus;
 
 import java.awt.*;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import static christmas.type.ErrorMessage.*;
@@ -23,12 +22,21 @@ public class Validator {
             throw new IllegalArgumentException(CONTAIN_SPACE.getError());
     }
 
-    // 숫자인지 검증
-    public static void validateInteger(String input) {
+    // 날짜가 숫자인지 검증
+    public static void validateDateIsInteger(String input) {
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(NOT_INTEGER.getError());
+            throw new IllegalArgumentException(NOT_INTEGER_IN.getError());
+        }
+    }
+
+    // 날짜가 숫자인지 검증
+    public static void validateQuantityIsInteger(String input) {
+        try {
+            Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(INVALID_ORDER.getError());
         }
     }
 
@@ -72,7 +80,7 @@ public class Validator {
     }
 
     // 주문한 메뉴 중 중복되는 메뉴가 존재하는지 검증
-    public static void validateDuplicatedMenu(Set<Menus> set, String input) {
+    public static void validateDuplicatedMenu(Set<Menus> set, Menus input) {
         if (set.contains(input)) {
             throw new IllegalArgumentException(INVALID_ORDER.getError());
         }
@@ -80,8 +88,8 @@ public class Validator {
 
     // 주문한 메뉴가 단 하나일 시 그게 음료인지 검증
     public static void validateSingleMenuIsBeverage(String input) {
-        if (Menus.valueOf(input).getMenuCategory().equals(MenuCategory.BEVERAGE)) {
-            throw new IllegalArgumentException(BEVERAGE_SINGLE_ORDER.getError());
+        if (Menus.getMenus(input).getMenuCategory().equals(MenuCategory.BEVERAGE)) {
+            throw new IllegalArgumentException(INVALID_ORDER.getError());
         }
     }
 
