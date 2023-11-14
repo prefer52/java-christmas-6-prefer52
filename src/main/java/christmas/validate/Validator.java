@@ -3,7 +3,6 @@ package christmas.validate;
 import christmas.type.MenuCategory;
 import christmas.type.Menus;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +26,7 @@ public class Validator {
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(NOT_INTEGER_IN.getError());
+            throw new IllegalArgumentException(NOT_DATE.getError());
         }
     }
 
@@ -43,7 +42,7 @@ public class Validator {
     // start~end 사이의 숫자인지 검증
     public static void validateIntegerIn(Integer input, int start, int end) {
         if (input < start || input > end) {
-            throw new IllegalArgumentException(NOT_INTEGER_IN.getError());
+            throw new IllegalArgumentException(NOT_DATE.getError());
         }
     }
 

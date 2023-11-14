@@ -2,12 +2,13 @@ package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static christmas.validate.Validator.*;
 
 public class InputView {
-    // 숫자 입력
+    // 날짜 입력
     public static int readDate() {
         String date = Console.readLine();
         validateNotEmptyString(date);
@@ -16,11 +17,12 @@ public class InputView {
         return Integer.parseInt(date);
     }
 
+    // 메뉴 입력
     public static List<String> readMenus() {
         String menu = Console.readLine();
         validateNotEmptyString(menu);
         validateContainSpace(menu);
         validateContainValidComma(menu);
-        return List.of(menu.split(","));
+        return new ArrayList<>(List.of(menu.split(",")));
     }
 }
