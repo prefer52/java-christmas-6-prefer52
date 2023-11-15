@@ -47,7 +47,7 @@ public class Validator {
     }
 
     // ,,가 포함되어 있거나 ,로 시작하거나 끝나는지 검증
-    public static void validateContainValidComma(String input) {
+    public static void validateContainInvalidComma(String input) {
         if (input.contains(",,") || input.startsWith(",") || input.endsWith(",")) {
             throw new IllegalArgumentException(CONTAIN_INVALID_COMMA.getError());
         }

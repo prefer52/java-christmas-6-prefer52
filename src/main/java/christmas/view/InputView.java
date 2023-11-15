@@ -22,7 +22,7 @@ public class InputView {
         String menu = Console.readLine();
         validateNotEmptyString(menu);
         validateContainSpace(menu);
-        validateContainValidComma(menu);
+        validateContainInvalidComma(menu);
         return new ArrayList<>(List.of(menu.split(",")));
     }
 }

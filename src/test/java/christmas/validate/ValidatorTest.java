@@ -66,9 +66,9 @@ class ValidatorTest {
     @DisplayName(",,가 포함되어 있거나 ,로 시작하거나 끝나는 것에 대한 예외 처리")
     @ValueSource(strings = {"menu,,", ",menu", "menu,"})
     @ParameterizedTest
-    void validateContainValidCommaTest(String input) {
+    void validateContainInvalidCommaTest(String input) {
         assertThatThrownBy(() ->
-                validateContainValidComma(input))
+                validateContainInvalidComma(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
