@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.type.EventCategory;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -55,19 +56,27 @@ class EventTest {
         assertEquals(complimentaryAmount, event.getComplimentaryEvent(amount));
     }
 
-    @Test
-    void getTotalBenefitAmountTest() {
+    @DisplayName("총 혜택 금액이 잘못될 시 실패")
+    @CsvSource({"3, 31246", "25, 33446", "26, 29046"})
+    @ParameterizedTest
+    void getSumOfBenefitAmountTest(int date, int benefitAmount) {
+        event = new Event(date);
+        assertEquals(benefitAmount, event.getSumOfBenefitAmount(order));
     }
 
-    @Test
-    void getSumOfBenefitAmountTest() {
+    @DisplayName("총 할인 금액이 잘못될 시 실패")
+    @CsvSource({"3, 6246", "25, 8446", "26, 4046"})
+    @ParameterizedTest
+    void getSumOfDiscountAmountTest(int date, int discount) {
+        event = new Event(date);
+        assertEquals(discount, event.getSumOfDiscountAmount(order));
     }
 
-    @Test
-    void getSumOfDiscountAmountTest() {
-    }
-
-    @Test
-    void getDecemberEventBadgeTest() {
+    @DisplayName("총 할인 금액이 잘못될 시 실패")
+    @CsvSource({"3, '산타\n'", "25, '산타\n'", "26, '산타\n'"})
+    @ParameterizedTest
+    void getDecemberEventBadgeTest(int date, String badge) {
+        event = new Event(date);
+        assertEquals(badge, event.getDecemberEventBadge(order));
     }
 }
