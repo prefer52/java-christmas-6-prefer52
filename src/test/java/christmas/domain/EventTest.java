@@ -47,12 +47,12 @@ class EventTest {
         assertEquals(discount, event.getSpecialDayDiscount());
     }
 
-    @Test
-    void getComplimentaryMenuTest() {
-    }
-
-    @Test
-    void getComplimentaryEventTest() {
+    @DisplayName("총주문 금액에 반환되는 증정 메뉴의 가격이 잘못될 시 실패")
+    @CsvSource({"119999, 0", "120000, 25000", "120001, 25000"})
+    @ParameterizedTest
+    void getComplimentaryEventTest(int amount, int complimentaryAmount) {
+        event = new Event(3);
+        assertEquals(complimentaryAmount, event.getComplimentaryEvent(amount));
     }
 
     @Test
