@@ -52,7 +52,10 @@ class OrderTest {
             assertEquals(1, order.getQuantity(menu));
     }
 
-    @Test
-    void getExpectedDiscountAmountTest() {
+    @DisplayName("할인 금액을 뺀 총 주문 금액이 잘못될 시 실패")
+    @ValueSource(ints = {1000, 2000, 3000, 4000, 5000})
+    @ParameterizedTest
+    void getExpectedDiscountAmountTest(int discount) {
+        assertEquals(order.getTotalAmount() - discount + "원\n", order.getExpectedDiscountAmount(discount));
     }
 }
