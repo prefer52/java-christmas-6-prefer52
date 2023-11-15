@@ -37,7 +37,7 @@ public class Event {
     }
 
     // 혜택 내역과 금액을 문자열로 반환하는 메서드
-    public String getDiscountDetail(EventCategory eventCategory, int discount) {
+    private String getDiscountDetail(EventCategory eventCategory, int discount) {
         if (discount == 0) {
             return "";
         }
