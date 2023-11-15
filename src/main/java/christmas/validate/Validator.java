@@ -79,8 +79,8 @@ public class Validator {
     }
 
     // 주문한 메뉴 중 중복되는 메뉴가 존재하는지 검증
-    public static void validateDuplicatedMenu(Set<Menus> set, Menus input) {
-        if (set.contains(input)) {
+    public static void validateDuplicatedMenu(Set<Menus> menus, Menus input) {
+        if (menus.contains(input)) {
             throw new IllegalArgumentException(INVALID_ORDER.getError());
         }
     }
@@ -93,9 +93,9 @@ public class Validator {
     }
 
     // 전체 주문 메뉴 수가 20개를 초과하는지 검증
-    public static void validateSumOver(int value, List<Integer> input) {
+    public static void validateSumOver(int value, List<Integer> inputs) {
         int sum = 0;
-        for (Integer number : input) {
+        for (Integer number : inputs) {
             sum += number;
         }
 

@@ -9,6 +9,7 @@ public enum DateCategory {
             19, 20, 21, 24, 25, 26, 27, 28, 31)),
     WEEKEND_DAY(List.of(1, 2, 8, 9, 15, 16, 22, 23, 29, 30)),
     SPECIAL_DAY(List.of(3, 10, 17, 24, 25, 31));
+    // 열거형의 이름에 해당하는 날짜들의 리스트
     private List<Integer> dates;
 
     DateCategory(List<Integer> dates) {

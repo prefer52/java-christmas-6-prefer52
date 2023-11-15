@@ -15,18 +15,21 @@ public enum Menus {
     ZERO_COLA("제로콜라", BEVERAGE, 3000),
     RED_WINE("레드와인", BEVERAGE, 60000),
     CHAMPAGNE("샴페인", BEVERAGE, 25000);
-    private String name;
+    // 메뉴 이름
+    private String menuName;
+    // 메뉴 카테고리
     private MenuCategory menuCategory;
+    // 메뉴의 가격
     private int price;
 
-    Menus(String name, MenuCategory menuCategory, int price) {
-        this.name = name;
+    Menus(String menuName, MenuCategory menuCategory, int price) {
+        this.menuName = menuName;
         this.menuCategory = menuCategory;
         this.price = price;
     }
 
-    public String getName() {
-        return name;
+    public String getMenuName() {
+        return menuName;
     }
 
     public MenuCategory getMenuCategory() {
@@ -39,7 +42,7 @@ public enum Menus {
 
     public static boolean inputInMenus(String input) {
         for (Menus menu : Menus.values()) {
-            if (menu.getName().equals(input)) {
+            if (menu.getMenuName().equals(input)) {
                 return true;
             }
         }
@@ -48,7 +51,7 @@ public enum Menus {
 
     public static Menus getMenus(String input) {
         for (Menus menu : Menus.values()) {
-            if (menu.getName().equals(input)) {
+            if (menu.getMenuName().equals(input)) {
                 return menu;
             }
         }

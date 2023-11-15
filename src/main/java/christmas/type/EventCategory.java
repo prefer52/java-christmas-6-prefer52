@@ -3,11 +3,14 @@ package christmas.type;
 public enum EventCategory {
     CHRISTMAS_D_DAY_DISCOUNT("크리스마스 디데이 할인", 100, 1000),
     COMPLIMENTARY_EVENT("증정 이벤트", 0, 0),
-    SPECIAL_DISCOUNT("특별 할인", 1000 ,0),
+    SPECIAL_DISCOUNT("특별 할인", 1000, 0),
     WEEKDAY_DISCOUNT("평일 할인", 2023, 0),
     WEEKEND_DISCOUNT("주말 할인", 2023, 0);
+    // 이벤트에 대한 설명
     private String description;
+    // 추가적인 할인 금액
     private int discount;
+    // 기본 할인 금액
     private int defaultBenefit;
 
     EventCategory(String description, int discount, int defaultBenefit) {

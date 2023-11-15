@@ -5,13 +5,13 @@ public enum MenuCategory {
     MAIN("메인"),
     DESSERT("디저트"),
     BEVERAGE("음료");
-    private String name;
+    private String categoryName;
 
-    MenuCategory(String name) {
-        this.name = name;
+    MenuCategory(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 }

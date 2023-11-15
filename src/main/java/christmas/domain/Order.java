@@ -8,6 +8,7 @@ import java.util.List;
 import static christmas.validate.Validator.*;
 
 public class Order {
+    private final int COMPLIMENTARY_NEED_AMOUNT = 120000;
     private Map<Menus, Integer> menus;
 
     // 주문 목록 초기화 및 검증
@@ -29,18 +30,20 @@ public class Order {
         validateSumOver(20, this.menus.values().stream().toList());
     }
 
+    // 주문한 메뉴를 문자열로 반환하는 메서드
     public String getOrderMenu() {
         String orderMenu = "";
         Set<Menus> keys = menus.keySet();
         for (Menus key : keys) {
-            orderMenu += key.getName() + " " + menus.get(key) + "개\n";
+            orderMenu += key.getMenuName() + " " + menus.get(key) + "개\n";
         }
 
         return orderMenu;
     }
 
-    public Integer getTotalAmount() {
-        Integer totalAmount = 0;
+    // 총주문 금액을 반환하는 메서드
+    public int getTotalAmount() {
+        int totalAmount = 0;
         Set<Menus> keys = menus.keySet();
         for (Menus key : keys) {
             totalAmount += key.getPrice() * menus.get(key);
@@ -49,21 +52,17 @@ public class Order {
         return totalAmount;
     }
 
-    public String getComplimentaryMenu() {
-        if (getTotalAmount() >= 120000)
-            return Menus.CHAMPAGNE.getName() + " 1개\n";
-
-        return "없음";
-    }
-
+    // 메뉴 종류를 리스트로 반환하는 메서드
     public List<Menus> getMenus() {
         return menus.keySet().stream().toList();
     }
 
+    // 각 메뉴마다의 주문 개수를 반환하는 메서드
     public Integer getQuantity(Menus menu) {
         return menus.get(menu);
     }
 
+    // 할인 금액을 뺀 총 주문 금액을 반환하는 메서드
     public String getExpectedDiscountAmount(int discount) {
         return (getTotalAmount() - discount) + "원\n";
     }

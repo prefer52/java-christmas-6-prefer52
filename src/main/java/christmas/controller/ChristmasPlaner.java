@@ -15,13 +15,14 @@ public class ChristmasPlaner {
     private Event event;
     private int date;
 
-    // 금액 출력 형식 맞추기 https://jamesdreaming.tistory.com/203
+    // 전체적인 프로그램 시작
     public void start() {
         readDate();
         readMenu();
         showBenefitPreview();
     }
 
+    // 날짜를 읽는 메서드
     private void readDate() {
         printMessages(List.of(HELLO.getText(), CHOOSE_DATE.getText()));
         while (true) {
@@ -36,6 +37,7 @@ public class ChristmasPlaner {
         }
     }
 
+    // 메뉴를 읽는 메서드
     private void readMenu() {
         printMessage(CHOOSE_MENU.getText());
         while (true) {
@@ -44,7 +46,7 @@ public class ChristmasPlaner {
                 validateContainInvalidDash(menus);
                 validateSplitSizeIsTwo(menus);
                 order = new Order(menus);
-                event = new Event(date, order);
+                event = new Event(date);
             } catch (IllegalArgumentException e) {
                 printMessage(e.getMessage());
                 continue;
@@ -53,6 +55,7 @@ public class ChristmasPlaner {
         }
     }
 
+    // 혜택 미리보기를 보여주는 메서드
     private void showBenefitPreview() {
         printMessage(PREVIEW_BENEFIT.getText() + "\n");
         showOrderMenu();
@@ -64,38 +67,45 @@ public class ChristmasPlaner {
         showDecemberEventBadge();
     }
 
+    // 주문한 메뉴를 보여주는 메서드
     private void showOrderMenu() {
         printMessage(ORDERED_MENU.getText());
         printMessage(order.getOrderMenu());
     }
 
+    // 할인 전 총 주문 금액을 보여주는 메서드
     private void showTotalAmountBeforeDiscount() {
         printMessage(TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT.getText());
         printMessage(order.getTotalAmount() + "\n");
     }
 
+    // 증정 메뉴를 보여주는 메서드
     private void showComplimentaryMenu() {
         printMessage(COMPLIMENTARY_ITEMS.getText());
-        printMessage(order.getComplimentaryMenu());
+        printMessage(event.getComplimentaryMenu(order.getTotalAmount()));
     }
 
+    // 혜택 내역을 보여주는 메서드
     private void showBenefitDetail() {
         printMessage(BENEFIT_DETAIL.getText());
-        printMessage(event.getDiscountDetails());
+        printMessage(event.getDiscountDetails(order));
     }
 
+    // 총혜택금액을 보여주는 메서드
     private void showTotalBenefitAmount() {
         printMessage(TOTAL_BENEFIT_AMOUNT.getText());
-        printMessage(event.getTotalBenefitAmount());
+        printMessage(event.getTotalBenefitAmount(order));
     }
 
+    // 할인 후 예상 결제 금액을 보여주는 메서드
     private void showExpectedDiscountAmount() {
         printMessage(EXPECTED_DISCOUNT_AMOUNT.getText());
-        printMessage(order.getExpectedDiscountAmount(event.getSumOfDiscountAmount()));
+        printMessage(order.getExpectedDiscountAmount(event.getSumOfDiscountAmount(order)));
     }
 
+    // 받은 12월 이벤트 배지를 보여주는 메서드
     private void showDecemberEventBadge() {
         printMessage(DECEMBER_EVENT_BADGE.getText());
-        printMessage(event.getDecemberEventBadge());
+        printMessage(event.getDecemberEventBadge(order));
     }
 }
