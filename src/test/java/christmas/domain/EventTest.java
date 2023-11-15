@@ -19,11 +19,15 @@ class EventTest {
     @ParameterizedTest
     void getChristmasDDayDiscountTest(int date, int discount) {
         event = new Event(date);
-        assertEquals(discount, event.getChristmasDDayDiscount()c/t);
+        assertEquals(discount, event.getChristmasDDayDiscount());
     }
 
-    @Test
-    void getWeekDayDiscountTest() {
+    @DisplayName("평일 할인 금액이 잘못 될 시 실패")
+    @CsvSource({"3, 4046", "7, 4046", "8, 0", "9, 0"})
+    @ParameterizedTest
+    void getWeekDayDiscountTest(int date, int discount) {
+        event = new Event(date);
+        assertEquals(discount, event.getWeekDayDiscount(order.getMenus(), order));
     }
 
     @Test
