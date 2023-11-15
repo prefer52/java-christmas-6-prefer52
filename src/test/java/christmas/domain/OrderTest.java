@@ -1,10 +1,12 @@
 package christmas.domain;
 
+import christmas.type.Menus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
@@ -22,15 +24,20 @@ class OrderTest {
         assertTrue(orderMenu.contains(menu));
     }
 
+    @DisplayName("총주문 금액이 잘못되었을 시 실패")
     @Test
     void getTotalAmountTest() {
+        assertEquals(197000, order.getTotalAmount());
     }
 
-    @Test
-    void getMenusTest() {
+    @DisplayName("메뉴 리스트에 테스트 케이스 메뉴가 포함되지 않았을 시 실패")
+    @EnumSource(value = Menus.class, names = {"T_BONE_STEAK", "BBQ_RIBS", "CHOCOLATE_CAKE", "ZERO_COLA"})
+    @ParameterizedTest
+    void getMenusTest(Menus menu) {
+        List<Menus> menus = order.getMenus();
+        assertTrue(menus.contains(menu));
     }
 
-    @Test
     void getQuantityTest() {
     }
 
