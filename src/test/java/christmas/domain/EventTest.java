@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.type.EventCategory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,8 +39,12 @@ class EventTest {
         assertEquals(discount, event.getWeekendDayDiscount(order.getMenus(), order));
     }
 
-    @Test
-    void getSpecialDayDiscountTest() {
+    @DisplayName("특별 할인 금액이 잘못될 시 실패")
+    @CsvSource({"3, 1000", "10, 1000", "25, 1000", "31, 1000"})
+    @ParameterizedTest
+    void getSpecialDayDiscountTest(int date, int discount) {
+        event = new Event(date);
+        assertEquals(discount, event.getSpecialDayDiscount());
     }
 
     @Test
