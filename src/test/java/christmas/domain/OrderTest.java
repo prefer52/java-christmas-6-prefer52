@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderTest {
     private Order order = new Order(List.of("티본스테이크-2", "바비큐립-1", "초코케이크-2", "제로콜라-1"));
 
-    @DisplayName("크리스마스 디데이 할인 금액이 잘못 될 시 실패")
+    @DisplayName("메뉴 목록에 아래 케이스가 포함되지 않을 시 실패")
     @ValueSource(strings = {"티본스테이크 2개", "바비큐립 1개", "초코케이크 2개", "제로콜라 1개"})
     @ParameterizedTest
     void getOrderMenuTest(String menu) {
