@@ -1,17 +1,19 @@
 package christmas.validate;
 
+import christmas.type.Menus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.*;
 import static christmas.validate.Validator.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class ValidatorTest {
 
@@ -34,12 +36,21 @@ class ValidatorTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("숫자가 아니거나 Integer보다 큰 수에 대한 예외 처리")
+    @DisplayName("숫자가 아닌 날짜에 대한 예외 처리")
     @ValueSource(strings = {"a", "!", "1a", "2147483648"})
     @ParameterizedTest
-    void validateIntegerTest(String input) {
+    void validateDateIsIntegerTest(String input) {
         assertThatThrownBy(() ->
-                validateInteger(input))
+                validateDateIsInteger(input))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("숫자가 아닌 메뉴 수에 대한 예외 처리")
+    @ValueSource(strings = {"a", "!", "1a", "2147483648"})
+    @ParameterizedTest
+    void validateQuantityIsIntegerTest(String input) {
+        assertThatThrownBy(() ->
+                validateQuantityIsInteger(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -50,7 +61,6 @@ class ValidatorTest {
         assertThatThrownBy(() ->
                 validateIntegerIn(input, 1, 31))
                 .isInstanceOf(IllegalArgumentException.class);
-
     }
 
     @DisplayName(",,가 포함되어 있거나 ,로 시작하거나 끝나는 것에 대한 예외 처리")
@@ -64,10 +74,10 @@ class ValidatorTest {
 
     @DisplayName("--가 포함되어 있거나, -로 시작하거나 끝나는 것에 대한 예외 처리")
     @Test
-    void validateContainValidDashTest() {
+    void validateContainInvalidDashTest() {
         List<String> inputs = List.of(new String[]{"--menu-1", "-menu-1", "menu-1-"});
         assertThatThrownBy(() ->
-                validateContainValidDash(inputs))
+                validateContainInvalidDash(inputs))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -90,19 +100,19 @@ class ValidatorTest {
     }
 
     @DisplayName("주문한 메뉴 중 중복되는 메뉴가 존재하는 것에 대한 예외 처리")
-    @ValueSource(strings = {"초코케이크", "아이스크림"})
+    @EnumSource(value = Menus.class, names = {"CHOCOLATE_CAKE", "ICE_CREAM"})
     @ParameterizedTest
-    void validateDuplicatedMenuTest(String input) {
-        Map<String, Integer> orders = Map.of("초코케이크", 1, "아이스크림", 2);
+    void validateDuplicatedMenuTest(Menus input) {
+        Map<Menus, Integer> orders = Map.of(Menus.CHOCOLATE_CAKE, 1, Menus.ICE_CREAM, 2);
         assertThatThrownBy(() ->
-                validateDuplicatedMenu(orders, input))
+                validateDuplicatedMenu(orders.keySet(), input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("주문한 메뉴가 단 하나일 시 그게 음료인것에 대한 예외 처리")
-    @ValueSource(strings = {"제로콜라", "레드와인", "샴페인"})
+    @EnumSource(value = Menus.class, names = {"ZERO_COLA", "RED_WINE", "CHAMPAGNE"})
     @ParameterizedTest
-    void validateSingleMenuIsBeverageTest(String input) {
+    void validateSingleMenuIsBeverageTest(Menus input) {
         assertThatThrownBy(() ->
                 validateSingleMenuIsBeverage(input))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -116,5 +126,4 @@ class ValidatorTest {
                 validateSumOver(20, inputs))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-
 }
