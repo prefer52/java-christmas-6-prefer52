@@ -9,7 +9,7 @@ import static christmas.validate.Validator.*;
 
 public class Order {
     private final int COMPLIMENTARY_NEED_AMOUNT = 120000;
-    private Map<Menus, Integer> menus;
+    private final Map<Menus, Integer> menus;
 
     // 주문 목록 초기화 및 검증
     public Order(List<String> menus) {

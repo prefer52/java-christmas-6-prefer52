@@ -15,7 +15,7 @@ public class Event {
     private final int EVENT_NEED_AMOUNT = 10000;
     // 증정 메뉴를 증정받기 위한 최소 금액
     private final int COMPLIMENTARY_NEED_AMOUNT = 120000;
-    private int date;
+    private final int date;
 
     public Event(int date) {
         this.date = date;
