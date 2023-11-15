@@ -38,7 +38,18 @@ class OrderTest {
         assertTrue(menus.contains(menu));
     }
 
-    void getQuantityTest() {
+    @DisplayName("메뉴마다 주문 개수가 맞지 않을시 실패")
+    @EnumSource(value = Menus.class, names = {"T_BONE_STEAK", "BBQ_RIBS", "CHOCOLATE_CAKE", "ZERO_COLA"})
+    @ParameterizedTest
+    void getQuantityTest(Menus menu) {
+        if (menu == Menus.T_BONE_STEAK)
+            assertEquals(2, order.getQuantity(menu));
+        if (menu == Menus.BBQ_RIBS)
+            assertEquals(1, order.getQuantity(menu));
+        if (menu == Menus.CHOCOLATE_CAKE)
+            assertEquals(2, order.getQuantity(menu));
+        if (menu == Menus.ZERO_COLA)
+            assertEquals(1, order.getQuantity(menu));
     }
 
     @Test
