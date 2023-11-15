@@ -46,7 +46,9 @@ public class Event {
 
     // 크리스마스 디데이 할인 금액을 반환하는 메서드
     public int getChristmasDDayDiscount() {
-        return ((date - 1) * CHRISTMAS_D_DAY_DISCOUNT.getDiscount() + CHRISTMAS_D_DAY_DISCOUNT.getDefaultBenefit());
+        if (date < 26)
+            return ((date - 1) * CHRISTMAS_D_DAY_DISCOUNT.getDiscount() + CHRISTMAS_D_DAY_DISCOUNT.getDefaultBenefit());
+        return 0;
     }
 
     // 평일 할인 금액을 반환하는 메서드
