@@ -76,7 +76,7 @@ public class ChristmasPlaner {
     // 할인 전 총 주문 금액을 보여주는 메서드
     private void showTotalAmountBeforeDiscount() {
         printMessage(TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT.getText());
-        printMessage(order.getTotalAmount() + "\n");
+        printMessage(order.getTotalAmount() + "원\n");
     }
 
     // 증정 메뉴를 보여주는 메서드

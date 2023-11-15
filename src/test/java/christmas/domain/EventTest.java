@@ -1,12 +1,8 @@
 package christmas.domain;
 
-import christmas.type.EventCategory;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
@@ -21,7 +17,7 @@ class EventTest {
     @ParameterizedTest
     void getChristmasDDayDiscountTest(int date, int discount) {
         event = new Event(date);
-        assertEquals(discount, event.getChristmasDDayDiscount());
+        assertEquals(discount, event.getChristmasDDayDiscount(order.getTotalAmount()));
     }
 
     @DisplayName("평일 할인 금액이 잘못될 시 실패")
@@ -29,7 +25,7 @@ class EventTest {
     @ParameterizedTest
     void getWeekDayDiscountTest(int date, int discount) {
         event = new Event(date);
-        assertEquals(discount, event.getWeekDayDiscount(order.getMenus(), order));
+        assertEquals(discount, event.getWeekDayDiscount(order.getMenus(), order, order.getTotalAmount()));
     }
 
     @DisplayName("주말 할인 금액이 잘못될 시 실패")
@@ -37,7 +33,7 @@ class EventTest {
     @ParameterizedTest
     void getWeekendDayDiscountTest(int date, int discount) {
         event = new Event(date);
-        assertEquals(discount, event.getWeekendDayDiscount(order.getMenus(), order));
+        assertEquals(discount, event.getWeekendDayDiscount(order.getMenus(), order, order.getTotalAmount()));
     }
 
     @DisplayName("특별 할인 금액이 잘못될 시 실패")
@@ -45,7 +41,7 @@ class EventTest {
     @ParameterizedTest
     void getSpecialDayDiscountTest(int date, int discount) {
         event = new Event(date);
-        assertEquals(discount, event.getSpecialDayDiscount());
+        assertEquals(discount, event.getSpecialDayDiscount(order.getTotalAmount()));
     }
 
     @DisplayName("총주문 금액에 반환되는 증정 메뉴의 가격이 잘못될 시 실패")

@@ -25,14 +25,14 @@ public class Event {
     public String getDiscountDetails(Order order) {
         int amount = order.getTotalAmount();
         if (amount < EVENT_NEED_AMOUNT) {
-            return "없음";
+            return "없음\n";
         }
 
         List<Menus> menus = order.getMenus();
-        return getDiscountDetail(CHRISTMAS_D_DAY_DISCOUNT, getChristmasDDayDiscount()) +
-                getDiscountDetail(WEEKDAY_DISCOUNT, getWeekDayDiscount(menus, order)) +
-                getDiscountDetail(WEEKEND_DISCOUNT, getWeekendDayDiscount(menus, order)) +
-                getDiscountDetail(SPECIAL_DISCOUNT, getSpecialDayDiscount()) +
+        return getDiscountDetail(CHRISTMAS_D_DAY_DISCOUNT, getChristmasDDayDiscount(amount)) +
+                getDiscountDetail(WEEKDAY_DISCOUNT, getWeekDayDiscount(menus, order, amount)) +
+                getDiscountDetail(WEEKEND_DISCOUNT, getWeekendDayDiscount(menus, order, amount)) +
+                getDiscountDetail(SPECIAL_DISCOUNT, getSpecialDayDiscount(amount)) +
                 getDiscountDetail(COMPLIMENTARY_EVENT, getComplimentaryEvent(amount));
     }
 
@@ -45,15 +45,15 @@ public class Event {
     }
 
     // 크리스마스 디데이 할인 금액을 반환하는 메서드
-    public int getChristmasDDayDiscount() {
-        if (date < 26)
-            return ((date - 1) * CHRISTMAS_D_DAY_DISCOUNT.getDiscount() + CHRISTMAS_D_DAY_DISCOUNT.getDefaultBenefit());
-        return 0;
+    public int getChristmasDDayDiscount(int amount) {
+        if (amount < EVENT_NEED_AMOUNT || date >= 26)
+            return 0;
+        return ((date - 1) * CHRISTMAS_D_DAY_DISCOUNT.getDiscount() + CHRISTMAS_D_DAY_DISCOUNT.getDefaultBenefit());
     }
 
     // 평일 할인 금액을 반환하는 메서드
-    public int getWeekDayDiscount(List<Menus> menus, Order order) {
-        if (!WEEK_DAY.getDates().contains(date)) {
+    public int getWeekDayDiscount(List<Menus> menus, Order order, int amount) {
+        if (amount < EVENT_NEED_AMOUNT || !WEEK_DAY.getDates().contains(date)) {
             return 0;
         }
 
@@ -67,8 +67,8 @@ public class Event {
     }
 
     // 주말 할인 금액을 반환하는 메서드
-    public int getWeekendDayDiscount(List<Menus> menus, Order order) {
-        if (!WEEKEND_DAY.getDates().contains(date)) {
+    public int getWeekendDayDiscount(List<Menus> menus, Order order, int amount) {
+        if (amount < EVENT_NEED_AMOUNT || !WEEKEND_DAY.getDates().contains(date)) {
             return 0;
         }
 
@@ -82,8 +82,8 @@ public class Event {
     }
 
     // 특별 할인 금액을 반환하는 메서드
-    public int getSpecialDayDiscount() {
-        if (!SPECIAL_DAY.getDates().contains(date)) {
+    public int getSpecialDayDiscount(int amount) {
+        if (amount < EVENT_NEED_AMOUNT || !SPECIAL_DAY.getDates().contains(date)) {
             return 0;
         }
         return SPECIAL_DISCOUNT.getDiscount();
@@ -91,10 +91,10 @@ public class Event {
 
     // 증정 메뉴 문자열을 반환하는 메서드
     public String getComplimentaryMenu(int amount) {
-        if (getComplimentaryEvent(amount) >= 0)
+        if (getComplimentaryEvent(amount) != 0)
             return Menus.CHAMPAGNE.getMenuName() + " 1개\n";
 
-        return "없음";
+        return "없음\n";
     }
 
     // 증정 메뉴 가격을 반환하는 메서드
@@ -119,8 +119,9 @@ public class Event {
     // 총 할인 금액을 정수로 반환하는 메서드
     public int getSumOfDiscountAmount(Order order) {
         List<Menus> menus = order.getMenus();
-        return getChristmasDDayDiscount() + getWeekDayDiscount(menus, order) +
-                getWeekendDayDiscount(menus, order) + getSpecialDayDiscount();
+        int amount = order.getTotalAmount();
+        return getChristmasDDayDiscount(amount) + getWeekDayDiscount(menus, order, amount) +
+                getWeekendDayDiscount(menus, order, amount) + getSpecialDayDiscount(amount);
     }
 
     // 12월 이벤트 배지 문자열을 반환하는 메서드
